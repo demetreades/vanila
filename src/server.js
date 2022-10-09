@@ -14,7 +14,7 @@ const runServer = async ({ config, dataService, repo }) => {
   const server = createServer(app);
 
   server.listen(Number(port), () => {
-    log.info(`homepage: http://localhost:${port}/${prefix}/`);
+    log.debug(`homepage: http://localhost:${port}/${prefix}/`);
     log.info(`server listening to port: ${port} in ${enviroment} mode`);
   });
 

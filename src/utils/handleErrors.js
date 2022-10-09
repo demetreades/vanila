@@ -6,7 +6,7 @@ const handleErrors = ({ err = null, res, status = 500, message = null }) => {
   const statusCode = err?.statusCode ?? status;
   const errorMsg = err?.message ?? message ?? 'err obj is null';
 
-  log.error('ERROR LOG: ', statusCode, errorMsg);
+  log.error(statusCode, errorMsg);
 
   const errorData = JSON.stringify({
     success: false,

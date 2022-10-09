@@ -18,11 +18,11 @@ const config = require('../config');
 const createLogger = ({ isProduction }) => ({
   debug: isProduction
     ? () => false
-    : (...args) => console.log(getTimestamp(), ...args),
-  info: (...args) => console.log(getTimestamp(), ...args),
-  warn: (...args) => console.warn(getTimestamp(), ...args),
-  error: (...args) => console.error(getTimestamp(), ...args),
-  fatal: (...args) => console.error(getTimestamp(), ...args),
+    : (...args) => console.log(getTimestamp(), '[DEBUG]', ...args),
+  info: (...args) => console.log(getTimestamp(), '[INFO]', ...args),
+  warn: (...args) => console.warn(getTimestamp(), '[WARN]', ...args),
+  error: (...args) => console.error(getTimestamp(), '[ERROR]', ...args),
+  fatal: (...args) => console.error(getTimestamp(), '[FATAL]', ...args),
 });
 
 module.exports = createLogger(config);
