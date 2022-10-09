@@ -6,7 +6,7 @@ const enviroment = process.env.NODE_ENV || 'development';
 const defaultConfig = {
   enviroment,
   isProduction: enviroment === 'production',
-  fileName: 'planets',
+  dataFileName: 'planets',
   ...createArgvProperties(),
 };
 

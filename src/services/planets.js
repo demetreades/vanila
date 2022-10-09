@@ -2,38 +2,43 @@
 
 const { BaseError } = require('../utils/Errors');
 
-const planetsService = (repo) => {
-  return {
-    async getAll() {
-      const results = await repo.getAll();
+const planetsService = (repo) => ({
+  async connect(config) {
+    await repo.connect(config);
 
-      return results;
-    },
-    async getById(paramId) {
-      const results = await repo.getById(paramId);
+    return this;
+  },
+  async getAll() {
+    const results = await repo.getAll();
 
-      if (!results.length) {
-        throw new BaseError({
-          statusCode: 404,
-          message: `planet ${paramId} not found`,
-        });
-      }
+    return results;
+  },
+  async getById(paramId) {
+    const results = await repo.getById(paramId);
 
-      return results;
-    },
-    async getManyByPopulation(body) {
-      const results = await repo.getManyByPopulation(body);
+    if (!results.length) {
+      throw new BaseError({
+        statusCode: 404,
+        message: `planet ${paramId} not found`,
+      });
+    }
 
-      if (!results.length) {
-        throw new BaseError({
-          statusCode: 404,
-          message: `No planets found with ${population} population range`,
-        });
-      }
+    return results;
+  },
+  async getManyByPopulation(body) {
+    const results = await repo.getManyByPopulation(body);
 
-      return results;
-    },
-  };
-};
+    if (!results.length) {
+      throw new BaseError({
+        statusCode: 404,
+        message: `No planets found in ${
+          JSON.parse(body).population
+        } population range`,
+      });
+    }
+
+    return results;
+  },
+});
 
 module.exports = planetsService;

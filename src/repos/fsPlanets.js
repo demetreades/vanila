@@ -1,13 +1,14 @@
 'use strict';
 
 const { stat } = require('node:fs/promises');
+const { BaseError } = require('../utils/Errors');
 const log = require('../utils/logger');
 
 let planets;
-const connect = async ({ fileName }) => {
+const connect = async ({ dataFileName }) => {
   try {
-    await stat(`./${fileName}.json`);
-    planets = require(`../../${fileName}.json`);
+    await stat(`./${dataFileName}.json`);
+    planets = require(`../../${dataFileName}.json`);
   } catch (err) {
     log.warn('WARN: no planets json data! run build script');
     planets = [];
@@ -34,11 +35,12 @@ const getById = async (id) => {
 };
 
 const getManyByPopulation = async (body) => {
-  const { population } = JSON.parse(body);
+  const data = JSON.parse(body);
   const allPlanets = await getAll();
 
   const filteredPlanets = allPlanets.filter(
-    (planet) => planet.population < Number(population ?? 0)
+    (planet) =>
+      planet.colonized && planet.population < Number(data?.population ?? 0)
   );
 
   return filteredPlanets;

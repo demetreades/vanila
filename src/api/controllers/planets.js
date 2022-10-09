@@ -1,6 +1,11 @@
 'use strict';
 
-const { successResponse, createPayload, handleAsync } = require('../../utils');
+const {
+  successResponse,
+  createPayload,
+  handleAsync,
+  handleErrors,
+} = require('../../utils');
 
 const planetControllers = (planetsService) => ({
   getAll: handleAsync(async (req, res) => {
@@ -34,18 +39,23 @@ const planetControllers = (planetsService) => ({
     });
 
     req.on('end', async () => {
-      const results = await planetsService.getManyByPopulation(body);
+      try {
+        const results = await planetsService.getManyByPopulation(body);
 
-      successResponse({
-        res,
-        type: 'json',
-        payload: createPayload({
-          data: results,
-          body: JSON.parse(body),
-        }),
-      });
-
-      return results;
+        successResponse({
+          res,
+          type: 'json',
+          payload: createPayload({
+            data: results,
+            body: JSON.parse(body),
+          }),
+        });
+      } catch (err) {
+        handleErrors({
+          err,
+          res,
+        });
+      }
     });
   }),
 });

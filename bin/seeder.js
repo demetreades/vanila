@@ -14,15 +14,14 @@ const seeder = async ({ fileName, size }) => {
   try {
     const planets = [];
     for (let i = 0; i < size; i++) {
-      const num = randomNumberRange(0, 6);
-      const colonized = num ? true : false;
+      const colonized = randomNumberRange(0, 6) ? true : false;
 
       planets[i] = {
         aa: i + 1,
-        id: randomNumberRange(100_000, 1_000_000_000),
+        id: randomNumberRange(10_000, 1_000_000_000),
         colonized,
         code: `${randomString().toUpperCase()}:${randomString().toUpperCase()}`,
-        population: colonized ? randomNumberRange(1, 800_000_000) : 0,
+        population: colonized ? randomNumberRange(1, 99_000_000) : 0,
         size: randomNumberRange(10_000, 220_000_000),
       };
     }
@@ -32,13 +31,13 @@ const seeder = async ({ fileName, size }) => {
       content: planets,
     });
 
-    log.info(`json seeder success: ${planets.length} planets generated!`);
+    log.info(`JSON Seeder success: ${planets.length} planets generated!`);
   } catch (err) {
-    log.error('json seeder error: ', err);
+    log.error('JSON Seeder error: ', err);
   }
 };
 
 (async (config) => await seeder(config))({
   fileName: 'planets',
-  size: randomNumberRange(50, 2_500),
+  size: randomNumberRange(50, 10_000),
 });

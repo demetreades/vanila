@@ -14,7 +14,7 @@ Content-Type: application/json
 
 {
   "colonized": true,
-  "population": 30000,
+  "population": 123403,
   "size": 20
 }
 
