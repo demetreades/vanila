@@ -1,4 +1,17 @@
-const planets = require('../../planets.json');
+'use strict';
+
+const { stat } = require('node:fs/promises');
+
+let planets;
+const connect = async () => {
+  try {
+    await stat('./planets.json');
+    planets = require('../../planets.json');
+  } catch (err) {
+    console.warn('WARN: no planets json data! run build script');
+    planets = [];
+  }
+};
 
 const getAll = () => {
   return new Promise((resolve, reject) => {
@@ -30,6 +43,7 @@ const getManyByPopulation = async (population) => {
 };
 
 module.exports = {
+  connect,
   getAll,
   getById,
   getManyByPopulation,

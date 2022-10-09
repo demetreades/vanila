@@ -1,6 +1,6 @@
 'use strict';
 
-const createArgvProperties = require('./utils/createArgvProperties');
+const createArgvProperties = require('../utils/createArgvProperties');
 
 const enviroment = process.env.NODE_ENV || 'development';
 const defaultConfig = {

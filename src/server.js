@@ -1,19 +1,29 @@
 'use strict';
 
 const { createServer } = require('node:http');
-const { port, enviroment } = require('./config');
-const { router } = require('./api');
+const config = require('./config');
+const createApp = require('./app');
+const planetsService = require('./services/planets');
+const fsPlanetsRepo = require('./repos/fsPlanets');
 
-const runServer = ({ router, port }) => {
-  const server = createServer(router);
-  server.listen(Number(port), () =>
-    console.log(`server listening to port: ${port} in ${enviroment} mode`)
+const runServer = async ({ config, dataService, repo }) => {
+  await repo.connect();
+
+  const planets = dataService(repo);
+  const app = createApp(planets);
+  const server = createServer(app);
+
+  server.listen(Number(config.port), () =>
+    console.log(
+      `server listening to port: ${config.port} in ${config.enviroment} mode`
+    )
   );
 
   return server;
 };
 
 runServer({
-  router,
-  port,
+  config,
+  dataService: planetsService,
+  repo: fsPlanetsRepo,
 });
