@@ -1,29 +1,29 @@
 'use strict';
 
-const { parse } = require('node:url');
 const requestLogger = require('./utils/requestLogger');
 const router = require('./api/router');
 const handleErrors = require('./utils/handleErrors');
 
 const createApp = (service) => async (req, res) => {
   try {
-    const requestStart = new Date().getTime();
-    const { method, url } = req;
-    const { pathname } = parse(url);
+    requestLogger({
+      req,
+      res,
+      start: new Date().getTime(),
+    });
 
     const routes = await router({
       req,
       res,
       service,
-      method,
-      pathname,
     });
-
-    requestLogger({ req, res, start: requestStart });
 
     return routes;
   } catch (err) {
-    handleErrors({ err, res });
+    handleErrors({
+      err,
+      res,
+    });
   }
 };
 

@@ -2,8 +2,12 @@
 
 const { pages, planets } = require('./controllers');
 const { prefixedEndpoint } = require('../utils');
+const { parse } = require('node:url');
 
-const router = async ({ req, res, service, pathname, method }) => {
+const router = async ({ req, res, service }) => {
+  const { method, url } = req;
+  const { pathname } = parse(url);
+
   if (pathname === prefixedEndpoint() && method === 'GET') {
     await pages().getHomepage(req, res);
 
@@ -21,8 +25,6 @@ const router = async ({ req, res, service, pathname, method }) => {
   }
 
   pages().notFound(req, res);
-
-  return;
 };
 
 module.exports = router;

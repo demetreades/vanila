@@ -8,12 +8,14 @@
 GET {{baseUrl}}:{{port}}/{{prefix}}/planets
 
 
-### filter planets by population ( from query params )
-POST {{baseUrl}}:{{port}}/{{prefix}}/planet?population=223320&size=20
+### filter planets by population
+POST {{baseUrl}}:{{port}}/{{prefix}}/planet?population=30000&size=20
 Content-Type: application/json
 
 {
-  "bodyProperty": true
+  "colonized": true,
+  "population": 30000,
+  "size": 20
 }
 
 

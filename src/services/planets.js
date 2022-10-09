@@ -21,8 +21,8 @@ const planetsService = (repo) => {
 
       return results;
     },
-    async getManyByPopulation(population) {
-      const results = await repo.getManyByPopulation(population);
+    async getManyByPopulation(body) {
+      const results = await repo.getManyByPopulation(body);
 
       if (!results.length) {
         throw new BaseError({
