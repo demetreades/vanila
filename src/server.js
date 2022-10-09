@@ -7,16 +7,16 @@ const planetsService = require('./services/planets');
 const fsPlanetsRepo = require('./repos/fsPlanets');
 
 const runServer = async ({ config, dataService, repo }) => {
-  await repo.connect();
+  const { port, enviroment } = config;
+
+  await repo.connect(config);
 
   const planets = dataService(repo);
   const app = createApp(planets);
   const server = createServer(app);
 
-  server.listen(Number(config.port), () =>
-    console.log(
-      `server listening to port: ${config.port} in ${config.enviroment} mode`
-    )
+  server.listen(Number(port), () =>
+    console.log(`server listening to port: ${port} in ${enviroment} mode`)
   );
 
   return server;

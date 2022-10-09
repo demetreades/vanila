@@ -18,11 +18,10 @@ const seeder = async ({ fileName, size }) => {
         id: randomNumberRange(100_000, 1_000_000_000),
         code: `${randomString().toUpperCase()}:${randomString().toUpperCase()}`,
         population: randomNumberRange(50, 8_000_000),
-        size: randomNumberRange(1_000_000, 999_000_000_000),
+        size: randomNumberRange(10_000, 220_000_000),
       };
     }
 
-    // await fsAsyncUtil.write({ fileName, content: planets });
     await fsAsyncUtil.pipeline({
       fileName,
       content: planets,

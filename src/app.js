@@ -19,7 +19,7 @@ const createApp = (service) => async (req, res) => {
       pathname,
     });
 
-    requestLogger(req, res, requestStart);
+    requestLogger({ req, res, start: requestStart });
 
     return routes;
   } catch (err) {

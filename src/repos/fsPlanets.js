@@ -3,10 +3,10 @@
 const { stat } = require('node:fs/promises');
 
 let planets;
-const connect = async () => {
+const connect = async ({ fileName }) => {
   try {
-    await stat('./planets.json');
-    planets = require('../../planets.json');
+    await stat(`./${fileName}.json`);
+    planets = require(`../../${fileName}.json`);
   } catch (err) {
     console.warn('WARN: no planets json data! run build script');
     planets = [];
