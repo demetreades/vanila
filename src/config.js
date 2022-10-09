@@ -2,7 +2,7 @@
 
 const createArgvProperties = require('./utils/createArgvProperties');
 
-const enviroment = process.env.NODE_ENV;
+const enviroment = process.env.NODE_ENV || 'development';
 const defaultConfig = {
   enviroment,
   ...createArgvProperties(),

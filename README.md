@@ -1,3 +1,3 @@
-# planets
+# vanila planets
 
-`npm run build` for seeding planets.json file and starting in development mode
+`npm run build` Will run the seeder script and create the `planets.json` and will start the server

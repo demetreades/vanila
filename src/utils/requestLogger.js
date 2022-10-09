@@ -9,7 +9,6 @@ const requestLogger = (req, res, requestStart) => {
     const timeInMs = new Date().getTime() - requestStart;
 
     console.log(
-      'REQUEST LOG: ',
       statusCode,
       method,
       url,
