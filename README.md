@@ -1,3 +1,5 @@
-# vanila planets
+# Vanilla CRUD
 
-`npm run build` Will run the seeder script and create the `planets.json` and will start the server
+#### Quickstart
+
+`npm run build` will start the seeder script for creating the `planets.json` and will run the server on port given in `package.json` `dev` and `start` scripts
