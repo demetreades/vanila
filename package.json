@@ -1,0 +1,15 @@
+{
+  "name": "vanila",
+  "version": "1.0.0",
+  "description": "run in with `npm run build`",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "NODE_ENV=production node src/server PORT=5555 PREFIX=api",
+    "build": "node bin/seeder && npm run dev",
+    "dev": "NODE_ENV=development nodemon src/server PORT=5555 PREFIX=api",
+    "kill": "kill -9 $(lsof -t -i:5555) && npm run dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
