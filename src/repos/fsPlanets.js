@@ -1,6 +1,7 @@
 'use strict';
 
 const { stat } = require('node:fs/promises');
+const log = require('../utils/logger');
 
 let planets;
 const connect = async ({ fileName }) => {
@@ -8,7 +9,7 @@ const connect = async ({ fileName }) => {
     await stat(`./${fileName}.json`);
     planets = require(`../../${fileName}.json`);
   } catch (err) {
-    console.warn('WARN: no planets json data! run build script');
+    log.warn('WARN: no planets json data! run build script');
     planets = [];
   }
 };
@@ -18,7 +19,7 @@ const getAll = () => {
     try {
       resolve(planets);
     } catch (err) {
-      console.error(err);
+      log.error(err);
 
       reject(err);
     }
@@ -32,7 +33,8 @@ const getById = async (id) => {
   return planet;
 };
 
-const getManyByPopulation = async (population) => {
+const getManyByPopulation = async (body) => {
+  const { population } = JSON.parse(body);
   const allPlanets = await getAll();
 
   const filteredPlanets = allPlanets.filter(

@@ -1,5 +1,7 @@
 'use strict';
 
+const log = require('./logger');
+
 const requestLogger = ({ req, res, start }) => {
   res.on('finish', () => {
     const { method, socket, url } = req;
@@ -8,7 +10,7 @@ const requestLogger = ({ req, res, start }) => {
 
     const timeInMs = new Date().getTime() - start;
 
-    console.log(
+    log.info(
       statusCode,
       method,
       url,

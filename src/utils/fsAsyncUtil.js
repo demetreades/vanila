@@ -4,6 +4,7 @@ const { writeFile, readFile } = require('fs/promises');
 const { createWriteStream } = require('fs');
 const { pipeline } = require('stream/promises');
 const { Readable } = require('stream');
+const log = require('../utils/logger');
 
 const fsAsyncUtil = {
   async write({ content, fileName, encoding = 'utf8', flag = 'w' }) {
@@ -24,7 +25,7 @@ const fsAsyncUtil = {
 
       await pipeline(readStream, writeStream);
     } catch (err) {
-      console.error('pipeline error: ', err);
+      log.error('pipeline error: ', err);
     }
   },
 };

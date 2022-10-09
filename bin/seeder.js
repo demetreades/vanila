@@ -3,6 +3,7 @@
 // simple script for generating random planets data in a json file on project root path
 
 const { fsAsyncUtil } = require('../src/utils');
+const log = require('../src/utils/logger');
 
 const randomString = () => (Math.random() + 1).toString(32).substring(7);
 const randomNumberRange = (min = 0, max = 100_000) => {
@@ -13,11 +14,15 @@ const seeder = async ({ fileName, size }) => {
   try {
     const planets = [];
     for (let i = 0; i < size; i++) {
+      const num = randomNumberRange(0, 6);
+      const colonized = num ? true : false;
+
       planets[i] = {
         aa: i + 1,
         id: randomNumberRange(100_000, 1_000_000_000),
+        colonized,
         code: `${randomString().toUpperCase()}:${randomString().toUpperCase()}`,
-        population: randomNumberRange(50, 8_000_000),
+        population: colonized ? randomNumberRange(1, 800_000_000) : 0,
         size: randomNumberRange(10_000, 220_000_000),
       };
     }
@@ -27,9 +32,9 @@ const seeder = async ({ fileName, size }) => {
       content: planets,
     });
 
-    console.log(`json seeder successful: ${planets.length} planets generated!`);
+    log.info(`json seeder success: ${planets.length} planets generated!`);
   } catch (err) {
-    console.error('json seeder error: ', err);
+    log.error('json seeder error: ', err);
   }
 };
 
