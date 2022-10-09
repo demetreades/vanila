@@ -35,12 +35,11 @@ const getById = async (id) => {
 };
 
 const getManyByPopulation = async (body) => {
-  const data = JSON.parse(body);
+  const { population } = JSON.parse(body);
   const allPlanets = await getAll();
 
   const filteredPlanets = allPlanets.filter(
-    (planet) =>
-      planet.colonized && planet.population < Number(data?.population ?? 0)
+    (planet) => planet.colonized && planet.population < Number(population ?? 0)
   );
 
   return filteredPlanets;

@@ -1,13 +1,14 @@
 'use strict';
 
+const path = require('node:path');
 const { createServer } = require('node:http');
 const createApp = require('./app');
 const log = require('./utils/logger');
 
-const runServer = async ({ config, dataService, repo }) => {
+const runServer = ({ config, dataService, repo }) => {
   const { port, enviroment, prefix } = config;
 
-  const service = await dataService(repo);
+  const service = dataService(repo);
   service.connect(config);
 
   const app = createApp(service);
